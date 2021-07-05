@@ -55,7 +55,7 @@ account required pam_userdb.so db=/etc/vsftpd/vsftp_users
 5、添加本地用户对应虚拟用户并指定目录
 ```
 #添加用户并指定目录
-[root@localhost ~]# useradd ftp_test1 -g ftp -d /www/test1 -m
+[root@localhost ~]# useradd ftp_test1 -g ftp -s /sbin/nologin -d /www/test1 -m
 [root@localhost ~]# chmod 755 /www/test1  #开放权限
 [root@localhost ~]# chown -Rf ftp /www/test1  #指定ftp组
 
@@ -112,6 +112,12 @@ write_enable=YES
 8、重启vsftpd
 ```
 [root@localhost ~]# service vsftpd restart
+```
+
+```
+有可能会提示下面的错误，但是不影响使用
+Starting vsftpd for vsftp_users: 500 OOPS: missing value in config file for: zhouzeken
+                                                           [FAILED]
 ```
 
 再次添加用户则重复：第2、3、5、8、9步骤
