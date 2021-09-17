@@ -1,0 +1,359 @@
+new Vue({
+    el: '#app',
+    data: function() {
+         var validatePass = (rule, value, callback) => {
+            if (value === '') {
+              callback(new Error('请输入密码'));
+            } else {
+              if (this.ruleRegisterForm.checkPass !== '') {
+                this.$refs.ruleRegisterForm.validateField('checkPass');
+              }
+              callback();
+            }
+        };
+      var validatePass2 = (rule, value, callback) => {
+           console.log(this.ruleRegisterForm.password)
+           console.log(value)
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+          
+        } else if (value !== this.ruleRegisterForm.password) {
+           
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
+        return {
+            //登录
+            username:'',
+            userEmail:'',
+            is_login:false,
+            ruleLoginForm: {
+              password: '',
+              username: ''
+            },
+            Loginrules: {
+              username: [
+                { required: true, message: '请输入账号', trigger: 'blur' }
+              ],
+              password: [
+                { required: true, message: '请输入密码', trigger: 'blur' }
+              ],
+            },
+            
+            //注册
+            ruleRegisterForm: {
+              password: '',
+              checkPass: '',
+              username: '',
+              email:''
+            },
+            Registerrules: {
+               username: [
+                { required: true, message: '请输入账号', trigger: 'blur' }
+              ],
+              password: [
+                { required: true, message: '请输入密码', trigger: 'blur' },
+                { validator: validatePass, trigger: 'blur' }
+              ],
+              checkPass: [
+                { required: true, message: '请再次输入密码', trigger: 'blur' },
+                { validator: validatePass2, trigger: 'blur' }
+              ],
+              email: [
+                { required: true, message: '请输入邮箱', trigger: 'blur' },
+                { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+              ],
+               
+            },
+            dialogLogin:false,
+            activeLogin:'1',
+            
+            search_form:{
+                keyword:'',
+            },
+            search_rules: {
+                keyword: [
+                    { required: true, message: '请输入关键词', trigger: 'blur' }
+                ],
+                
+            },
+            keywords_width: 'width250',
+            related_articles: [],
+
+            page_loading: false,
+            comment_list:[],
+            comment_count:0,
+
+            tag_list: [],
+            cat_list:[],
+            
+            commentForm: {
+                author: '',
+                email: '',
+                comment: '',
+                comment_post_ID: 0
+            },
+            rules: {
+                comment: [{
+                    required: true,
+                    message: '请填写评论内容',
+                    trigger: 'blur'
+                }]
+            },
+            comment_loading:false
+        }
+    },
+    watch: {
+
+    },
+    mounted: function() {
+        var logininfo = localStorage.getItem("uinfo");
+        
+        if(logininfo){
+            logininfo = JSON.parse(logininfo)
+            this.is_login = true;
+            this.username = logininfo.username;
+            this.userEmail = logininfo.email;
+        }
+        this.get_tag_list();
+        this.get_cat_list();
+        this.get_related_articles();
+        this.get_comment_list();
+    },
+
+    methods: {
+         Login(val){
+            this.dialogLogin = true;
+            this.activeLogin = val
+        },
+        submitLoginForm(formName){
+             var _this = this;
+             this.$refs[formName].validate((valid) => {
+              if (valid) {
+                 var params = {
+                    'action':'login',
+                    'username':_this.ruleLoginForm.username,
+                    'password':_this.ruleLoginForm.password
+                };
+                
+                $.post(ajaxurl, params, function(response){
+                    if (response.code == 200) {
+                        var uinfo = {uid: response.data.uid, username: response.data.username, email: response.data.email}
+                        _this.username = response.data.username;
+                        localStorage.setItem("uinfo",JSON.stringify(uinfo));
+                        _this.$message({
+                          message: '恭喜你，登录成功',
+                          type: 'success'
+                        });
+                        _this.dialogLogin = false;
+                        _this.is_login = true
+                    } else {
+                        _this.$message.error(response.msg);
+                    }
+                },'json');
+              } else {
+                console.log('error submit!!');
+                return false;
+              }
+            });
+        },
+        //注册
+        submitRegisterForm(formName){
+             var _this = this;
+             this.$refs[formName].validate((valid) => {
+              if (valid) {
+                 var params = {
+                    'action':'register',
+                    'username':_this.ruleRegisterForm.username,
+                    'password':_this.ruleRegisterForm.password,
+                    'email':_this.ruleRegisterForm.email
+                };
+                
+                $.post(ajaxurl, params, function(response){
+                    if (response.code == 200) {
+                        var uinfo = {uid: response.data.uid, username: response.data.username, email: response.data.email}
+                        _this.username = response.data.username;
+                        localStorage.setItem("uinfo",JSON.stringify(uinfo));
+                        _this.resetForm('ruleRegisterForm');
+                        _this.$message({
+                          message: '恭喜你，注册成功',
+                          type: 'success'
+                        });
+                        _this.dialogLogin = false;
+                        _this.is_login = true
+                    } else {
+                        _this.$message.error(response.msg);
+                    }
+                },'json');
+              } else {
+                console.log('error submit!!');
+                return false;
+              }
+            });
+        },
+        //重置表单
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
+        //退出登录
+        logout(){
+            this.$confirm('确定要退出登录?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                localStorage.removeItem("uinfo");
+                this.is_login = false
+                this.$message({
+                    type: 'success',
+                    message: '退出成功!'
+                });
+            }).catch(() => {
+                        
+            });
+            
+        },
+        handleClick(tab, event) {
+        console.log(tab, event);
+        },
+        
+        keyword_focus: function() {
+            this.keywords_width = 'width350';
+        },
+        keyword_blur: function() {
+            this.keywords_width = 'width250'
+        },
+        //获取标签列表
+        get_tag_list(){
+            var params = {
+                'action':'get_taglist',
+                'number':24
+                
+            };
+            var _this = this;
+            $.post(ajaxurl, params, function(response){
+                if (response.code == 200) {
+                    _this.tag_list=response.data
+                }
+                
+            },'json');
+        },
+        //获取分类列表
+        get_cat_list(){
+            var params = {
+                'action':'get_catlist',
+                'noin_arr':'banner,uncategorized'
+                
+            };
+            var _this = this;
+            $.post(ajaxurl, params, function(response){
+                if (response.code == 200) {
+                    _this.cat_list=response.data
+                }
+                
+            },'json');
+        },
+        //相关文章
+        get_related_articles(){
+            var _this = this;
+            var params = {
+                'action':'related_articles',
+                'post_id':post_id,
+                'limit':6
+               
+            };
+            $.post(ajaxurl, params, function(response){
+                if (response.code == 200) {
+                     _this.related_articles = response.data;
+                }
+            },'json');
+            return false;
+        },
+         //提交评论
+        add_comment:function(formName){
+            var _this = this;
+            if(this.username == ''){
+                this.Login('login');
+                return false;
+            }
+            this.$refs[formName].validate((valid) => {
+              if (valid) {
+                 _this.comment_loading = true
+                 var params = {
+                    'action':'comment_callback',
+                    'author':this.username,
+                    'email':this.userEmail,
+                    'comment':this.commentForm.comment,
+                    'comment_post_ID':post_id,
+                };
+                $.post(ajaxurl, params, function(response){
+                    if (response.code == 200) {
+                        _this.$message({
+                          message: response.msg,
+                          type: 'success'
+                        });
+                        _this.resetForm('commentForm');
+                    } else {
+                        _this.$message({
+                          message: response.msg,
+                          type: 'warning'
+                        });
+                    }
+                    _this.comment_loading = false
+                },'json');
+              } else {
+                console.log('error submit!!');
+                return false;
+              }
+            });
+            return false;
+        },
+       
+         //重置表单
+        resetForm:function(formName) {
+           this.$refs[formName].resetFields();
+        },
+        //获取评论列表
+        get_comment_list:function(){
+            var _this = this;
+            _this.page_loading = true;
+            var params = {
+                'action':'cus_get_comment',
+                'post_id':post_id,   
+                'number':this.limits,
+                'offset':this.curr                  
+            };
+            $.post(ajaxurl, params, function(response){
+                if (response.code == 200) {
+                     _this.comment_list = response.data;
+                     _this.comment_count = response.total;
+                     _this.curr = response.curr;
+                     _this.limits = response.limits;
+                     _this.pages = response.pages;
+                }
+                _this.page_loading = false;
+            },'json');
+            return false;
+        },
+         //搜索
+        search_submit:function(formName){
+            this.$refs[formName].validate(function(valid){
+              if (valid) {
+                $("#search_form").submit();
+              } else {
+                return false;
+              }
+            });
+        }
+
+    },
+    filters: {
+         //搜索链接处理
+        alink:function(value, url){
+            return url+value;
+        }
+    }
+
+})

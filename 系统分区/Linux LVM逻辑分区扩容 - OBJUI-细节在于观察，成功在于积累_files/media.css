@@ -1,0 +1,67 @@
+
+/**
+ * 小屏手机 (<768px)
+ */
+@media screen and (max-width:1099px) {
+    
+    .content{
+        max-width:100%;
+    }
+    .main-left{
+        float: none;
+        width:100%;
+        padding: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .article-ul li img{
+        width: 150px;
+        height: 80px;
+  
+    }
+    #header .logo {
+        margin-right: 0;
+    }
+    #footer span{
+        display: block;
+        margin-top: 5px;
+    }
+    .noshow,.show1100{
+        display: none;
+    }
+    .noshow1100{
+        display: inline;
+    }
+    .article-list{
+        margin-top: 20px;
+    }
+    .min-search-form{
+        display: flex;
+        justify-content:center;
+        width: 100%;
+        margin-top:20px;
+        padding:0 20px;
+    }
+    .min-search-form .el-form{
+         width: 100%;
+    }
+    .min-search-form .keywords_input .el-input__inner{
+        border-radius:4px;
+        width:100%;
+    }
+    .related-ul li{
+        float: none;
+        width: 100%;
+    }
+    
+    
+}
+/**
+ * 桌面 (≥1100px)
+ */
+@media screen and (min-width:1100px){
+    .noshow1100{
+         display: none;
+    }
+}

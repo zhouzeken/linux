@@ -1,0 +1,365 @@
+/*header*/
+#header{
+	position: relative;
+    height: 80px;
+    box-shadow: 0 0 1px rgba(0,0,0,0.25);
+    transition: background-color 0.3s ease-in-out;
+    z-index: 100;
+    line-height: 80px;
+    background: #FFFFFF;
+}
+#header .logo{
+	margin-right: 50px;
+}
+.search-form{
+    margin-top:20px ;
+}
+.keywords_input{
+	transition:width 1s;
+	-webkit-transition:width 1s; 
+}
+.keywords_input .el-input__inner{
+	border-radius:20px;
+}
+.top-login-form li{
+	display: inline;
+	padding: 0 20px;
+}
+.loginDialog .el-tabs__nav-scroll{
+   display: none;  
+}
+
+/*banner*/
+#banner{
+    box-sizing: border-box;
+}
+#banner .banner-left{
+    width:750px ;
+}
+#banner .banner-right{
+    width:280px ;
+}
+.el-carousel__item h3 {
+    color: #475669;
+    font-size: 18px;
+    opacity: 1;
+    line-height: 250px;
+    margin: 0;
+    height: 250px;
+}
+#banner .el-carousel__container{
+    height: 250px;
+}
+.right-menu ul{
+    padding: 20px;
+}
+  .right-menu ul li{
+      float: left;
+      width: 80px;
+      height: 80px;
+      margin: 15px 0;
+      text-align: center;
+  }
+.right-menu ul li i{
+    color: #67C23A;
+    font-size: 48px;
+}
+
+.right-menu{
+    height: 250px;
+    background-color: #fdfdfd;
+}
+
+.right-menu img{
+    max-width: 280px;
+}
+
+#main{
+	-webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+}
+.main-left .row,
+.main-right .row{
+   background: #fdfdfd;
+   padding:10px 20px 20px 20px;
+}
+.main-left{
+    width:760px ;
+    padding-right: 10px;
+}
+
+.main-right img{
+    max-width: 100%;
+}
+  
+/*首页文章列表*/
+
+.article-ul li{
+    display: block;
+    min-height: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px #E4E7ED solid;
+}
+.article-ul li img{
+    width: 200px;
+    height: 100px;
+    margin-left: 20px;
+    border: 1px #eeeeee solid;
+}
+
+.article-ul li h3{
+    color: #555555;
+    font-size: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.article-ul li p{
+    padding-top: 15px;
+    color: #999999;
+    font-size: 12px;
+}
+.article-ul li span{
+    padding-top: 15px;
+    color: #999999;
+    font-size: 12px;
+}
+.article-ul li .icon-p i{
+    padding-left: 10px;
+    padding-right: 5px;
+    color: #67C23A;
+}
+.article-ul li .icon-p i:first-child{
+    padding-left: 0px;
+}  
+  
+.main-right{
+    width: 280px;
+}
+
+
+/*活跃用户排行*/
+.message-ul li{
+    line-height: 32px;
+    margin: 20px 0;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.message-ul li .icon{
+    width: 50px;
+}
+.message-ul li .msg{
+   font-size: 12px;
+   color: #999999;
+}
+.message-ul li span{
+    margin-right: 10px;
+}
+.title{
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    border-bottom: 1px #DCDFE6 solid;
+}
+.title span{
+    
+    color: #555555;
+    height: 40px;
+    line-height: 40px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #00b0ca;
+}
+
+/*标签云*/
+.tags .el-tag{
+    margin: 5px 3px 0 0;
+}
+.tags .el-tag a{
+    
+    color: #FFFFFF;
+}
+
+.tags .el-tag:first-child{
+    background: #67C23A;
+}
+.tags .el-tag:nth-child(8n){
+    background: #4e5bf2;
+}
+.tags .el-tag:nth-child(8n-7){
+    background: #6c757d;
+}
+.tags .el-tag:nth-child(8n-6){
+    background: #fa5c7c;
+}
+.tags .el-tag:nth-child(8n-5){
+    background: #0acf97;
+}
+.tags .el-tag:nth-child(8n-4){
+    background: #ffbc00;
+}
+.tags .el-tag:nth-child(8n-3){
+    background: #727cf5;
+}
+.tags .el-tag:nth-child(8n-2){
+    background: #39afd1;
+}
+.tags .el-tag:nth-child(8n-1){
+    background: #409EFF;
+}
+
+/*页脚*/
+#footer{
+    border-top: #DCDFE6 1px solid;
+    padding: 20px 0;
+    margin-top: 30px;
+    color: #999999;
+    font-size: 12px;
+    text-align: center;
+    background-color: #fdfdfd;
+}
+#footer span{
+    padding: 0 10px;
+}
+
+/*--------------*/
+.cat-ul{
+    margin-top: 20px;
+}
+.cat-ul li{
+    padding:5px 0;
+}
+
+.breadcrumb{
+    padding-top: 20px;
+}
+
+.article-detail{
+    line-height: 2em;
+    
+}
+.article-detail .icon-p{
+    font-size: 12px;
+    color: #999999;
+    padding-bottom: 10px;
+}
+.article-detail .detail-title{
+    font-size: 16px;
+    line-height: 32px;
+}
+.detail-content{
+    padding: 20px 0;
+    line-height: 2em;
+    color: #666666;
+}
+.detail-content p{
+    line-height: 2em;
+}
+.detail-content h3{
+    padding: 20px 0 10px 0;
+}
+.detail-content img{
+    max-width: 100%;
+}
+.detail-content .wp-block-cover{
+    display: none;
+}
+.line{
+    height: 1px;
+    width: 100%;
+    border-bottom: 1px solid #DCDFE6;
+}
+.related-ul{
+    margin-top:20px
+}
+.related-ul li{
+     width: 50%;
+     float: left;
+}
+.detail-pay{
+    display: flex;
+
+    flex-direction: column;
+}
+.detail-pay button{
+    align-self:center;
+    font-size: 16px;
+}
+.detail-copy{
+    border-radius: 4px;
+    background: #F2F6FC;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-left: 3px solid #67C23A;
+    
+}
+.detail-copy p{
+    font-size: 12px;
+    color: #999999;
+}
+.detail-pay .el-button.is-circle{
+    padding: 20px;
+}
+.comment-text .el-textarea__inner{
+    height: 120px;
+}
+.comment-ul li{
+    margin: 10px;
+    border-bottom: 1px solid #EEEEEE;
+}
+.comment-ul li em,
+.comment-ul li span{
+     color: #999999;
+     font-size: 12px;
+     font-weight: 100;
+}
+.comment-ul li p{
+    padding: 20px;
+    color: #666666;
+}
+
+
+/*公共*/
+.marginTop20{
+	margin-top: 20px;
+}
+.marginBottom20{
+    margin-bottom: 20px;
+}
+.content{
+	max-width: 1100px;
+	margin:0 auto;
+	padding: 0 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.width150{
+	width: 150px;
+}
+.width250{
+	width: 250px;
+}
+.width350{
+	width: 350px;
+}
+.width450{
+	width: 450px;
+}
+.padding10{
+    padding: 10px;
+}
+blockquote p{
+	border-radius:2px;
+    background: #F2F6FC;
+    margin:0 10px 20px 10px;
+    padding: 10px;
+    border-left: 5px solid #999999;
+}
+.detail-content h2{
+	margin-top:20px;
+	margin-bottom:10px;
+}
