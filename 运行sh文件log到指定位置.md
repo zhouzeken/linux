@@ -1,0 +1,1 @@
+/data/shell/zzkceshi.sh > /data/test.txt 2>&1  &
