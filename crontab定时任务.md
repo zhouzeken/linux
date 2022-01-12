@@ -1,9 +1,10 @@
 ```
+
 #查看任务列表
 [root@localhost ~]# crontab -l
 
 
-#编辑任务
+#修改添加任务
 [root@localhost ~]# crontab -e
 
 ```
